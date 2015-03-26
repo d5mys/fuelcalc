@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Appizy">
+  <title>Appizy</title>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/numeral.js/1.5.3/numeral.min.js""></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/numeral.js/1.5.3/numeral.min.js"></script><style>
+  #appizy table {
+  table-layout: fixed;
+	border: none;
+	border-collapse: collapse;
+}
+#appizy tbody {
+	border: none;
+}
+
+#appizy td, #appizy th {
+  overflow: hidden;
+}
+
+#appizy tr {
+	font-size:10pt;
+	font-family:arial;
+	min-height:10px;
+}
+
+#appizy td {
+	padding:2px;
+	line-height:normal;
+}
+
+#appizy input {
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border: 1px solid #C2C2C2;
+	border-radius: 2px;
+	color: inherit;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	padding-right: 4px;
+	text-align: inherit;
+	margin:1px;
+	width: 90%;
+}
+
+#appizy input:focus {
+	border: 2px solid #333333;
+	margin:0px;
+}
+
+#appizy input:disabled {
+	border:none !important;
+	color: inherit;
+	-webkit-opacity: 1;
+	-webkit-text-fill-color:inherit;
+}
+
+#appizy select {
+	width:100%; text-align: inherit;
+}
+
+#appizy p {
+	margin: 0 0 0.1em 0;
+}
+
+.in {
+  text-align:right;
+}
+
+.out {
+  text-align:right;
+  padding:5px;
+}
+
+.hidden-cell {
+  display:none;
+}.ce1 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+ }
+.ce2 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+ }
+.ce3 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    font-weight:bold;
+ }
+.ce4 { 
+    background-color:#FFFF00;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border:2pt solid #000000;
+    text-align:center;
+    font-weight:bold;
+ }
+.ce6 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border:thin solid #000000;
+    font-weight:bold;
+ }
+.ce7 { 
+    background-color:#8DB4E2;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border:thin solid #000000;
+    font-weight:bold;
+ }
+.ce8 { 
+    background-color:#8DB4E2;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border-top:thin solid #000000;
+    border-bottom:thin solid #000000;
+    border-left:thin solid #000000;
+    border-right:none;
+    font-weight:bold;
+ }
+.ce9 { 
+    background-color:#FFFFFF;
+    color:#000000;
+    font-family:Calibri;
+    font-size:9pt;
+    border-top:thin solid #000000;
+    border-bottom:thin solid #000000;
+    border-left:thin solid #000000;
+    border-right:none;
+    font-weight:bold;
+ }
+.ce10 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    text-align:center;
+ }
+.ce11 { 
+    background-color:#FFFF00;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border:2pt solid #000000;
+    text-align:center;
+    font-weight:bold;
+ }
+.ce12 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border-top:none;
+    border-bottom:thin solid #000000;
+    border-left:none;
+    border-right:thin solid #000000;
+    text-align:center;
+    font-style:italic;
+    font-weight:bold;
+ }
+.ce13 { 
+    background-color:#FFFF00;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border:2pt solid #000000;
+    text-align:center;
+    font-weight:bold;
+ }
+.ce14 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border-top:none;
+    border-bottom:none;
+    border-left:thin solid #000000;
+    border-right:thin solid #000000;
+    text-align:center;
+    font-weight:bold;
+ }
+.ce15 { 
+    background-color:#FFFF00;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border:2pt solid #000000;
+    text-align:center;
+    font-style:italic;
+    font-weight:bold;
+ }
+.ce16 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+ }
+.ce17 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border:thin solid #000000;
+    text-align:center;
+    font-style:italic;
+    font-weight:bold;
+ }
+.ce18 { 
+    background-color:#8DB4E2;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border:thin solid #000000;
+    text-align:center;
+    font-style:italic;
+    font-weight:bold;
+ }
+.ce19 { 
+    background-color:#8DB4E2;
+    color:#000000;
+    font-family:Calibri;
+    font-size:10pt;
+    border-top:thin solid #000000;
+    border-bottom:thin solid #000000;
+    border-left:thin solid #000000;
+    border-right:none;
+    text-align:center;
+    font-weight:bold;
+ }
+.ce20 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:10pt;
+    border-top:thin solid #000000;
+    border-bottom:thin solid #000000;
+    border-left:thin solid #000000;
+    border-right:none;
+    text-align:center;
+    font-weight:bold;
+ }
+.ce21 { 
+    background-color:#FFFF00;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border-top:2pt solid #000000;
+    border-bottom:2pt solid #000000;
+    border-left:2pt solid #000000;
+    border-right:none;
+    text-align:center;
+    font-weight:bold;
+ }
+.ce22 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border-top:none;
+    border-bottom:thin solid #000000;
+    border-left:thin solid #000000;
+    border-right:none;
+    text-align:center;
+    font-style:italic;
+    font-weight:bold;
+ }
+.ce23 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border-top:thin solid #000000;
+    border-bottom:none;
+    border-left:thin solid #000000;
+    border-right:none;
+    text-align:center;
+    font-style:italic;
+    font-weight:bold;
+ }
+.ce24 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border-top:thin solid #000000;
+    border-bottom:none;
+    border-left:thin solid #000000;
+    border-right:thin solid #000000;
+    text-align:center;
+    font-style:italic;
+    font-weight:bold;
+ }
+.ce25 { 
+    background-color:#8DB4E2;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border:thin solid #000000;
+    text-align:end;
+    font-weight:bold;
+ }
+.ce26 { 
+    background-color:#FFFF00;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border:2pt solid #000000;
+    text-align:center;
+    font-weight:bold;
+ }
+.ce27 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    text-align:start;
+    font-weight:bold;
+ }
+.ce28 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    text-align:start;
+ }
+.ce29 { 
+    background-color:#8DB4E2;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border:thin solid #000000;
+    text-align:start;
+    font-weight:bold;
+ }
+.ce30 { 
+    background-color:#FFFFFF;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border-top:thin solid #000000;
+    border-bottom:thin solid #000000;
+    border-left:thin solid #000000;
+    border-right:none;
+    text-align:start;
+    font-weight:bold;
+ }
+.ce31 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border-top:thin solid #000000;
+    border-bottom:none;
+    border-left:none;
+    border-right:none;
+    text-align:start;
+    font-weight:bold;
+ }
+.ce32 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    text-align:start;
+    font-weight:bold;
+ }
+.ce33 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    text-align:start;
+ }
+.ce34 { 
+    background-color:#FFFF00;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border:2pt solid #000000;
+    text-align:center;
+    font-weight:bold;
+ }
+.ce35 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    text-align:center;
+    font-style:italic;
+    text-decoration:underline;
+    font-weight:bold;
+ }
+.ce36 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    text-align:center;
+    font-weight:bold;
+ }
+.ce38 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    text-align:center;
+    font-style:italic;
+    text-decoration:underline;
+    font-weight:bold;
+ }
+.ce39 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    text-align:center;
+ }
+.ce41 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    text-align:start;
+ }
+.ce48 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    text-align:center;
+    font-weight:bold;
+ }
+.ce50 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    text-align:start;
+    font-weight:bold;
+ }
+.ce53 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border-top:none;
+    border-bottom:thin solid #000000;
+    border-left:none;
+    border-right:none;
+    text-align:center;
+    font-style:italic;
+    text-decoration:underline;
+    font-weight:bold;
+ }
+.ce61 { 
+    background-color:#FFFFFF;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border-top:thin solid #000000;
+    border-bottom:thin solid #000000;
+    border-left:thin solid #000000;
+    border-right:2pt solid #000000;
+    text-align:start;
+    font-weight:bold;
+ }
+.ce62 { 
+    background-color:#8DB4E2;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border:thin solid #000000;
+    text-align:start;
+    font-weight:bold;
+ }
+.ce63 { 
+    background-color:#FFFFFF;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border:thin solid #000000;
+    text-align:start;
+    font-weight:bold;
+ }
+.ce64 { 
+    background-color:#FFFFFF;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border-top:thin solid #000000;
+    border-bottom:thin solid #000000;
+    border-left:thin solid #000000;
+    border-right:2pt solid #000000;
+    text-align:start;
+    font-weight:bold;
+ }
+.ce65 { 
+    background-color:#8DB4E2;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border-top:thin solid #000000;
+    border-bottom:thin solid #000000;
+    border-left:thin solid #000000;
+    border-right:2pt solid #000000;
+    text-align:start;
+    font-weight:bold;
+ }
+.ce66 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border-top:thin solid #000000;
+    border-bottom:none;
+    border-left:thin solid #000000;
+    border-right:thin solid #000000;
+    text-align:center;
+    font-weight:bold;
+ }
+.ce67 { 
+    background-color:#FFFFFF;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border-top:none;
+    border-bottom:thin solid #000000;
+    border-left:thin solid #000000;
+    border-right:thin solid #000000;
+    text-align:center;
+    font-style:italic;
+    font-weight:bold;
+ }
+.ce68 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border:thin solid #000000;
+    text-align:center;
+    font-style:italic;
+    font-weight:bold;
+ }
+.t1 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Edwardian Script ITC;
+    font-size:14pt;
+    font-style:normal;
+    font-weight:normal;
+ }
+.co1 { 
+    width:1.93145833333333cm;
+ }
+.co2 { 
+    width:2.8575cm;
+ }
+.co3 { 
+    width:0.423333333333333cm;
+ }
+.co4 { 
+    width:2.64583333333333cm;
+ }
+.co5 { 
+    width:2.83104166666667cm;
+ }
+.co6 { 
+    width:2.301875cm;
+ }
+.co7 { 
+    width:3.36020833333333cm;
+ }
+.co8 { 
+    width:0cm;
+ }
+.co9 { 
+    width:2.2225cm;
+ }
+.ro1 { 
+    height:15.75pt;
+ }
+.ro2 { 
+    height:16.5pt;
+ }
+.ro4 { 
+    height:27pt;
+ }
+.ce69 { 
+    background-color:transparent;
+    color:#000000;
+    font-family:Calibri;
+    font-size:12pt;
+    border-top:thin solid #000000;
+    border-bottom:none;
+    border-left:thin solid #000000;
+    border-right:thin solid #000000;
+    text-align:center;
+    font-weight:bold;
+ }
+
+</style>
+</head>
+<body>
+  <div id="appizy">
+<form>
+<div id="sheets"><ul>
+  <li><a href="#sheet-0">Airbus_A320</a></li>
+  <li><a href="#sheet-1">Emirates_777</a></li>
+</ul>
+<div id="sheet-0">
+<table>
+<tbody>
+<tr class="s0r0 ro1">
+  <td colspan="5" class="text ce36 co1"><p>A320 SERIES FUELING CALCULATOR</p></td>
+</tr>
+<tr class="s0r1 ro2">
+</tr>
+<tr class="s0r2 ro2">
+  <td class="text ce8 co1"><p>Fuel Start</p></td>
+  <td class="in ce13 co2"><input data-type="string" data-format=" kg"  id="s0r2c1" name="s0r2c1" type="text" value="" onchange="setOutput(this.name,this.value,this.dataset.type);run_calc()"></td>
+  <td class="text ce1 co3"></td>
+  <td class="text ce8 co4"><p>BOWSER</p></td>
+  <td class="in ce11 co5"><input data-type="string" data-format=" ltrs"  id="s0r2c4" name="s0r2c4" type="text" value="" onchange="setOutput(this.name,this.value,this.dataset.type);run_calc()"></td>
+</tr>
+<tr class="s0r3 ro2">
+  <td class="text ce6 co1"><p>Uplift</p></td>
+  <td class="out ce14 co2"><input data-type="float" data-format=" kg" disabled name="s0r3c1" value="0"></td>
+  <td class="text ce1 co3"></td>
+  <td class="text ce6 co4"><p>CALCULATED</p></td>
+  <td class="out ce12 co5"><input data-type="string" data-format=" ltrs" disabled name="s0r3c4" value=""></td>
+</tr>
+<tr class="s0r4 ro2">
+  <td class="text ce8 co1"><p>Fuel End</p></td>
+  <td class="in ce15 co2"><input data-type="string" data-format=" kg"  id="s0r4c1" name="s0r4c1" type="text" value="" onchange="setOutput(this.name,this.value,this.dataset.type);run_calc()"></td>
+  <td class="text ce1 co3"></td>
+  <td class="text ce7 co4"><p>TOLERANCE</p></td>
+  <td class="out ce69 co5"><input data-type="string" data-format="0.0%" disabled name="s0r4c4" value=""></td>
+  <td class="text ce1 co6 hidden-cell"></td>
+  <td class="text ce1 co6 hidden-cell"></td>
+  <td class="text ce1 co7 hidden-cell"></td>
+  <td class="text ce1 co8 hidden-cell"></td>
+  <td class="text ce1 co8 hidden-cell"></td>
+  <td class="text ce1 co8 hidden-cell"></td>
+  <td class="text ce1 co8 hidden-cell"></td>
+  <td class="text ce2 co8 hidden-cell"></td>
+</tr>
+<tr class="s0r5 ro2">
+  <td class="text ce1 co1"></td>
+  <td class="text ce16 co2"></td>
+  <td class="text ce1 co3"></td>
+  <td class="text ce9 co4"><p>SPECIFIC GRAVITY</p></td>
+  <td class="in ce4 co5"><input data-type="float" data-format="0.000"  id="s0r5c4" name="s0r5c4" type="text" value="0.8" onchange="setOutput(this.name,this.value,this.dataset.type);run_calc()"></td>
+</tr>
+<tr class="s0r6 ro1">
+  <td class="text ce7 co1"><p>LH Wing</p></td>
+  <td class="out ce18 co2"><input data-type="float" data-format="0 kg" disabled name="s0r6c1" value="0"></td>
+</tr>
+<tr class="s0r7 ro1">
+  <td class="text ce6 co1"><p>CENTER</p></td>
+  <td class="out ce17 co2"><input data-type="float" data-format="0 kg" disabled name="s0r7c1" value="0"></td>
+  <td class="text ce1 co3"></td>
+  <td colspan="5" rowspan="2" class="text ce39 co4"><p>PLEASE FILL OUT ALL YELLOW BOXES FOR ACCURACY</p></td>
+</tr>
+<tr class="s0r8 ro1">
+  <td class="text ce7 co1"><p>RH Wing</p></td>
+  <td class="out ce18 co2"><input data-type="float" data-format="0 kg" disabled name="s0r8c1" value="0"></td>
+  <td class="text ce1 co3"></td>
+</tr>
+<tr class="s0r9 ro1">
+</tr>
+<tr class="s0r10 ro1">
+  <td colspan="5" class="text ce38 co1"><p>Note- Center Tank includes ACT, and does not have a limit</p></td>
+</tr>
+<tr class="s0r11 ro1" style="visibility:collapse">
+</tr>
+<tr class="s0r12 ro1" style="visibility:collapse">
+</tr>
+<tr class="s0r13 ro1" style="visibility:collapse">
+</tr>
+<tr class="s0r14 ro1" style="visibility:collapse">
+</tr>
+<tr class="s0r15 ro1" style="visibility:collapse">
+</tr>
+<tr class="s0r16 ro1" style="visibility:collapse">
+</tr>
+<tr class="s0r17 ro1" style="visibility:collapse">
+</tr>
+<tr class="s0r18 ro1" style="visibility:collapse">
+</tr>
+<tr class="s0r19 ro1" style="visibility:collapse">
+</tr>
+<tr class="s0r20 ro1" style="visibility:collapse">
+  <td class="text ce3 co1"></td>
+</tr>
+</tbody>
+</table>
+</div><!-- /#sheet-0-->
+<div id="sheet-1">
+<table>
+<tbody>
+<tr class="s1r0 ro1">
+  <td colspan="5" class="text ce48 co6"><p>EMIRATES 777 FUELING CALCULATOR</p></td>
+  <td class="text ce10 co8 hidden-cell"></td>
+</tr>
+<tr class="s1r1 ro1">
+  <td class="text ce27 co6"></td>
+  <td class="text ce28 co9"></td>
+  <td class="text ce28 co6"></td>
+  <td class="text ce28 co3"></td>
+  <td class="text ce28 co6"></td>
+  <td class="text ce10 co8 hidden-cell"></td>
+</tr>
+<tr class="s1r2 ro2">
+  <td class="text ce27 co6"></td>
+  <td class="text ce27 co9"></td>
+  <td class="text ce35 co6"><p>KG</p></td>
+  <td colspan="2" class="text ce53 co3"><p>LITRES</p></td>
+</tr>
+<tr class="s1r3 ro2">
+  <td colspan="2" class="text ce61 co6"><p>FOB ON ARRIVAL</p></td>
+  <td class="in ce21 co6"><input data-type="string" data-format="0"  id="s1r3c2" name="s1r3c2" type="text" value="" onchange="setOutput(this.name,this.value,this.dataset.type);run_calc()"></td>
+  <td colspan="2" class="text ce66 co3"><p>Bowser Receipt</p></td>
+</tr>
+<tr class="s1r4 ro2">
+  <td colspan="2" class="text ce65 co6"><p>FUEL USED ON GROUND</p></td>
+  <td class="in ce21 co6"><input data-type="string" data-format="0"  id="s1r4c2" name="s1r4c2" type="text" value="" onchange="setOutput(this.name,this.value,this.dataset.type);run_calc()"></td>
+  <td class="text ce19 co3"><p>1</p></td>
+  <td class="in ce34 co6"><input data-type="string" data-format="0"  id="s1r4c4" name="s1r4c4" type="text" value="" onchange="setOutput(this.name,this.value,this.dataset.type);run_calc()"></td>
+</tr>
+<tr class="s1r5 ro2">
+  <td colspan="2" class="text ce64 co6"><p>REQ DEPARTURE FUEL</p></td>
+  <td class="in ce21 co6"><input data-type="string" data-format="0"  id="s1r5c2" name="s1r5c2" type="text" value="" onchange="setOutput(this.name,this.value,this.dataset.type);run_calc()"></td>
+  <td class="text ce20 co3"><p>2</p></td>
+  <td class="in ce34 co6"><input data-type="string" data-format="0"  id="s1r5c4" name="s1r5c4" type="text" value="" onchange="setOutput(this.name,this.value,this.dataset.type);run_calc()"></td>
+</tr>
+<tr class="s1r6 ro2">
+  <td colspan="2" class="text ce62 co6"><p>REQUIRED UPLIFT</p></td>
+  <td class="out ce22 co6"><input data-type="float" data-format="0" disabled name="s1r6c2" value="0"></td>
+  <td class="text ce19 co3"><p>3</p></td>
+  <td class="in ce34 co6"><input data-type="string" data-format="0"  id="s1r6c4" name="s1r6c4" type="text" value="" onchange="setOutput(this.name,this.value,this.dataset.type);run_calc()"></td>
+</tr>
+<tr class="s1r7 ro1">
+  <td colspan="2" class="text ce63 co6"><p>ACTUAL UPLIFT (Bowser)</p></td>
+  <td class="out ce23 co6"><input data-type="float" data-format="0" disabled name="s1r7c2" value="0"></td>
+  <td colspan="2" class="out ce67 co3"><input data-type="float" data-format="0" disabled name="s1r7c3" value="0"></td>
+</tr>
+<tr class="s1r8 ro2">
+  <td class="text ce29 co6"><p>DISCR KGS</p></td>
+  <td class="out ce24 co9"><input data-type="float" data-format="0" disabled name="s1r8c1" value="0"></td>
+  <td class="text ce25 co6"><p>DISCR %</p></td>
+  <td colspan="2" class="out ce68 co3"><input data-type="string" data-format="0.00%" disabled name="s1r8c3" value=""></td>
+</tr>
+<tr class="s1r9 ro2">
+  <td class="text ce30 co6"><p>FUEL SG</p></td>
+  <td class="in ce26 co9"><input data-type="float" data-format="0.000"  id="s1r9c1" name="s1r9c1" type="text" value="0.8" onchange="setOutput(this.name,this.value,this.dataset.type);run_calc()"></td>
+  <td class="text ce31 co6"></td>
+  <td class="text ce32 co3"></td>
+  <td class="text ce27 co6"></td>
+</tr>
+<tr class="s1r10 ro1">
+  <td class="text ce27 co6"></td>
+  <td class="text ce27 co9"></td>
+  <td class="text ce27 co6"></td>
+  <td class="text ce27 co3"></td>
+  <td class="text ce27 co6"></td>
+</tr>
+<tr class="s1r11 ro1">
+  <td colspan="5" class="text ce50 co6"><p>PLEASE FILL OUT ALL YELLOW BOXES FOR ACCURACY</p></td>
+</tr>
+<tr class="s1r12 ro4">
+  <td class="text ce33 co6"></td>
+  <td class="text ce33 co9"></td>
+  <td colspan="3" class="text ce41 co6"><p>Made By<span class="t1" >Demetri</span></p></td>
+</tr>
+</tbody>
+</table>
+</div><!-- /#sheet-1-->
+</div><!-- /#sheets -->
+</form>
+</div><!-- /#apppizy -->
+
+<script>
+	function run_calc(){ step0();step1();step2();step3()};
+function step0() {
+  s0r3c1();s0r6c1();s0r7c1();s0r8c1();s1r6c2();s1r7c3();
+}
+function step1() {
+  s0r3c4();s1r7c2();
+}
+function step2() {
+  s0r4c4();s1r8c1();
+}
+function step3() {
+  s1r8c3();
+}
+// Cells formulas
+function s0r3c1(){ setOutput('s0r3c1',RANGE([0,4,1])-RANGE([0,2,1])) }
+function s0r3c4(){ setOutput('s0r3c4',Formula.IF(RANGE([0,3,1])==0,"",(RANGE([0,3,1])/RANGE([0,5,4])))) }
+function s0r4c4(){ setOutput('s0r4c4',Formula.IF(RANGE([0,2,4])==0,"",(RANGE([0,3,4])-RANGE([0,2,4]))/RANGE([0,3,4]))) }
+function s0r6c1(){ setOutput('s0r6c1',Formula.IF(12500>=RANGE([0,4,1]),RANGE([0,4,1])/2,6250)) }
+function s0r7c1(){ setOutput('s0r7c1',Formula.IF(12500>=RANGE([0,4,1]),0,RANGE([0,4,1])-12500)) }
+function s0r8c1(){ setOutput('s0r8c1',Formula.IF(12500>=RANGE([0,4,1]),RANGE([0,4,1])/2,6250)) }
+function s1r6c2(){ setOutput('s1r6c2',RANGE([1,5,2])-RANGE([1,3,2])+RANGE([1,4,2])) }
+function s1r7c2(){ setOutput('s1r7c2',RANGE([1,7,3])*RANGE([1,9,1])) }
+function s1r7c3(){ setOutput('s1r7c3',RANGE([1,4,4])+RANGE([1,5,4])+RANGE([1,6,4])) }
+function s1r8c1(){ setOutput('s1r8c1',RANGE([1,7,2])-RANGE([1,6,2])) }
+function s1r8c3(){ setOutput('s1r8c3',Formula.IF(RANGE([1,8,1])==0,"",(RANGE([1,8,1])/RANGE([1,6,2])))) }
+// Calculation functions
+(function() {
+var root = this;
+var Formula = root.Formula = {};
+Formula.IF = function(test, then_value, otherwise_value) {if (test) {return (typeof then_value === 'undefined') ? true : then_value;} else {return (typeof otherwise_value === 'undefined') ? true : otherwise_value;}}
+RANGE = function(){if (arguments.length == 1) {cell_ref = 's'+arguments[0][0]+'r'+arguments[0][1]+'c'+arguments[0][2];if (document.getElementsByName(cell_ref).item(0) != null) {values =get_input(document.getElementsByName(cell_ref).item(0).value, document.getElementsByName(cell_ref).item(0).dataset.type);} else {values = null;}} else if (arguments.length == 2) {head = arguments[0] ;tail = arguments[1] ;var values = [];for (var col = 0; col <= (tail[1]-head[1]); col++) {for (var row = 0; row <= tail[2]-head[2]; row++) {cell_ref = 's'+head[0]+'r'+(head[1]+col)+'c'+(head[2]+row);if (document.getElementsByName(cell_ref).item(0) != null) {values.push(get_input(document.getElementsByName(cell_ref).item(0).value, document.getElementsByName(cell_ref).item(0).dataset.type));} else {values.push(null);}}}}return values;}
+get_input = function(value, type){if (typeof type === "undefined") type = "string";if (type == "boolean") {value = (value == "true");} else if (value.length === 0) {value = "";} else if (type == "string") {if (!isNaN(value) && isFinite(value)) {value = parseFloat(value); } else {}} else {old_format = value;value = numeral().unformat(value);}return value;}
+setOutput = function(output_name, value, type) {var element = document.getElementsByName(output_name).item(0);var formats = element.dataset.format;if (typeof type === "undefined") {type = (typeof value === "undefined") ? "string" : typeof value ;} if (type === "string" || type === "boolean") {element.value = value;element.dataset.type = typeof value; } else if (type == "number" || type == "float" || type == "percentage") {if (typeof formats == "undefined") {element.value = value;} else {var myformat;var formats_array = formats.split(";",3);var nb_format = formats_array.length;if(value==0 && nb_format==3){ myformat = formats_array[1]; } else if(value<0) { myformat = formats_array[0]; } else { myformat = formats_array[nb_format-1] ;}element.value = numeral(value).format(myformat);}element.dataset.type = "number"; } else { }}
+}).call(this);
+window.onload = function(){
+inputs = document.getElementsByTagName('input');
+for(i=0; i<inputs.length; i++){
+	input = inputs.item(i);
+
+	value = get_input(inputs.item(i).value,  inputs.item(i).dataset.type);
+	if (!input.disabled) setOutput(inputs.item(i).name, value, inputs.item(i).dataset.type);
+}
+run_calc();
+
+};
+</script>
+</body>
+</html>
